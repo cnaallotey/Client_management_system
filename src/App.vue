@@ -153,18 +153,45 @@
                       Admin
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <a
+                      <!-- <a--
                         href="#"
                         class="text-green-600 hover:text-green-900 mr-5"
+                        
+                        >Edit</a-->
+                      >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 text-green-600 hover:text-green-900 mr-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                         @click="editClient(employee.id)"
-                        >Edit</a
                       >
-                      <a
-                        href="#"
-                        class="text-red-600 hover:text-indigo-900"
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 text-red-600 hover:text-indigo-900"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                         @click="deleteClient(employee.id)"
-                        >Delete Client</a
                       >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                      <!-- <a href="#" class="text-red-600 hover:text-indigo-900"
+                        >Delete Client</a
+                      >-->
                     </td>
                   </tr>
 
@@ -273,7 +300,7 @@ export default {
           .then((res) => {
             console.log(res.data);
           });
-          
+
         this.firstName = this.lastName = this.email = this.role = this.department = "";
         this.error = false;
         this.editmodal = false;
@@ -350,12 +377,11 @@ export default {
       this.department = value;
     },
   },
-  watch() {
-  },
+  watch() {},
 
   mounted() {
     axios
-    //load all employees
+      //load all employees
       .get("http://localhost:3000/loadclient")
       .then((res) => (this.employees = res.data))
       .catch((err) => console.log(err));
