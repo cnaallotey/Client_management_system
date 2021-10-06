@@ -158,7 +158,7 @@
                         class="text-green-600 hover:text-green-900 mr-5"
                         
                         >Edit</a-->
-                      >
+
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-6 w-6 text-green-600 hover:text-green-900 mr-5"
@@ -347,6 +347,7 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         role: this.role,
+        email: this.email,
         department: this.department,
       });
       location.reload();
