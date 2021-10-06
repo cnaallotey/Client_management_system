@@ -156,13 +156,13 @@
                       <a
                         href="#"
                         class="text-green-600 hover:text-green-900 mr-5"
-                        @click="editClient(employee)"
+                        @click="editClient(employee.id)"
                         >Edit</a
                       >
                       <a
                         href="#"
                         class="text-red-600 hover:text-indigo-900"
-                        @click="deleteClient(employee)"
+                        @click="deleteClient(employee.id)"
                         >Delete Client</a
                       >
                     </td>
@@ -198,12 +198,16 @@
             :role="role"
             :department="department"
             :email="email"
+            :id="id"
+            :editClient="editClient"
+            :updateClient="updateClient"
             v-on:childToFirst="childFirst"
             v-on:childToLast="childLast"
             v-on:childToEmail="childEmail"
             v-on:childToDep="childDep"
             v-on:childToRole="childRole"
           ></editmodal>
+          <p>{{ id }}</p>
         </div>
       </div>
     </div>
@@ -211,6 +215,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import json from "./clients.json";
 import modal from "./components/modal.vue";
 import editmodal from "./components/editmodal.vue";
@@ -226,12 +231,13 @@ export default {
       // cars: ["toyota", "hyundai", "mazda"],
       showmodal: false,
       editmodal: false,
-      employees: json,
+      employees: [],
       firstName: "",
       lastName: "",
       email: "",
       role: "",
       department: "",
+      id: "",
       fromchild: "",
       error: false,
       editerror: false,
@@ -255,20 +261,26 @@ export default {
       ) {
         this.error = true;
       } else {
-        this.employees.push({
-          Name: { firstName: this.firstName, lastName: this.lastName },
-          department: this.department,
-          email: this.email,
-          role: this.role,
-          status: "active",
-          id: Math.floor(Math.random() * 100),
-        });
+        axios
+          .post("http://localhost:3000/client", {
+            Name: { firstName: this.firstName, lastName: this.lastName },
+            department: this.department,
+            email: this.email,
+            role: this.role,
+            status: "active",
+            id: Math.floor(Math.random() * 100).toString(),
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+          
         this.firstName = this.lastName = this.email = this.role = this.department = "";
         this.error = false;
         this.editmodal = false;
-        setTimeout(() => {
-          this.showmodal = false;
-        }, 1000);
+        location.reload();
+        // setTimeout(() => {
+        //   this.showmodal = false;
+        // }, 1000);
       }
     },
     updateuser: function () {
@@ -283,23 +295,44 @@ export default {
       } else {
       }
     },
-    editClient: function (employee, thing) {
-      this.editmodal = true;
-      this.firstName = employee.Name.firstName;
-      this.lastName = employee.Name.lastName;
-      this.role = employee.role;
-      this.department = employee.department;
-      this.email = employee.email;
-      this.editmodal = true;
 
-      this.employees = this.employees.filter((item) => item.id !== employee.id);
+    editClient: function (clientId, thing) {
+      axios
+        .get("http://localhost:3000/client/editclient/" + clientId)
+        .then((response) => {
+          console.log(response.data);
+          const update = response.data;
+          this.id = clientId;
+          this.editmodal = true;
+          this.firstName = update[0].Name.firstName;
+          this.lastName = update[0].Name.lastName;
+          this.role = update[0].role;
+          this.department = update[0].department;
+          this.email = update[0].email;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // this.employees = this.employees.filter((item) => item.id !== employee.id);
+    },
+    updateClient: function () {
+      axios.put("http://localhost:3000/client/updateclient/" + this.id, {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        role: this.role,
+        department: this.department,
+      });
+      location.reload();
     },
     toggleModal: function () {
       this.showmodal = false;
     },
     toggleEditModal: function () {},
-    deleteClient: function (thing) {
-      this.employees = this.employees.filter((item) => item.id !== thing.id);
+    deleteClient: function (clientId) {
+      axios.delete("http://localhost:3000/client/" + clientId).then((response) => {
+        console.log(response.data);
+        location.reload();
+      });
     },
     childFirst: function (value) {
       this.firstName = value;
@@ -317,9 +350,16 @@ export default {
       this.department = value;
     },
   },
-  // updated() {
-  //   this.employees = this.employees.sort((a, b) => (a.firstName > b.lastName && 1) || -1);
-  // },
+  watch() {
+  },
+
+  mounted() {
+    axios
+    //load all employees
+      .get("http://localhost:3000/loadclient")
+      .then((res) => (this.employees = res.data))
+      .catch((err) => console.log(err));
+  },
 
   computed: {
     searchEmployees() {

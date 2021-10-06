@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/vue-fontawesome": "^2.0.2",
+    "axios": "^0.21.4",
     "vue": "^2.5.11"
   },
   "browserslist": [

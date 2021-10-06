@@ -46,7 +46,11 @@
         <div
           class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
         >
-          <form action="" class="form bg-white p-6 my-10 relative">
+          <form
+            action="http://localhost:8081/client"
+            method="POST"
+            class="form bg-white p-6 my-10 relative"
+          >
             <div
               class="icon bg-blue-600 text-white w-6 h-6 absolute flex items-center justify-center p-5"
               style="left: -40px"
@@ -57,7 +61,7 @@
             <div class="flex space-x-5 mt-3">
               <input
                 type="text"
-                name=""
+                name="lastName"
                 id=""
                 placeholder="First name"
                 class="border p-2 w-1/2"
@@ -66,7 +70,7 @@
               />
               <input
                 type="text"
-                name=""
+                name="lastName"
                 id=""
                 placeholder="Last Name"
                 class="border p-2 w-1/2"
@@ -76,7 +80,7 @@
             </div>
             <input
               type="email"
-              name=""
+              name="email"
               id=""
               placeholder="Your Email"
               class="border p-2 w-full mt-3"
@@ -85,7 +89,7 @@
             />
             <input
               type="text"
-              name=""
+              name="department"
               id=""
               placeholder="Department"
               class="border p-2 w-full mt-3"
@@ -94,7 +98,7 @@
             />
             <input
               type="text"
-              name=""
+              name="role"
               id=""
               placeholder="Role"
               class="border p-2 w-full mt-3"

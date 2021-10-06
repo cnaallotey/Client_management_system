@@ -111,7 +111,7 @@
               type="submit"
               value="Submit"
               class="w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold p-3"
-              @click.prevent="pushUser()"
+              @click.prevent="updateClient()"
             />
           </form>
         </div>
@@ -125,6 +125,7 @@
 export default {
   props: {
     pushUser: { type: Function },
+    updateClient: { type: Function },
     error: { type: Boolean },
     editmodal: { type: Boolean },
     toggleModal: { type: Function },
@@ -133,6 +134,7 @@ export default {
     department: { type: String },
     role: { type: String },
     email: { type: String },
+    id: { type: String },
   },
   data() {
     return {
