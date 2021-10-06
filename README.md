@@ -1,6 +1,6 @@
 # tert
 
-> A Vue.js project
+> A CRUD CMS app using vue js and Node js
 
 ## Build Setup
 
