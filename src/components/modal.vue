@@ -116,7 +116,7 @@
               type="submit"
               value="Submit"
               class="w-full mt-6 bg-blue-600 hover:bg-blue-500 text-white font-semibold p-3"
-              @click.prevent="pushUser()"
+              @click.prevent="addClient()"
             />
           </form>
         </div>
@@ -129,7 +129,7 @@
 <script>
 export default {
   props: {
-    pushUser: { type: Function },
+    addClient: { type: Function },
     error: { type: Boolean },
     showModal: { type: Boolean },
     toggleModal: { type: Function },
