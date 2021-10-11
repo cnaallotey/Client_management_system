@@ -67,7 +67,7 @@
         </div>
         <button
           class="bg-blue-600 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
-          @click="newUser()"
+          @click="newClient()"
         >
           Add new client
         </button>
@@ -202,7 +202,7 @@
           </div>
           <modal
             v-if="showmodal"
-            :pushUser="pushUser"
+            :addClient="addClient"
             :toggleModal="toggleModal"
             :error="error"
             :firstName="firstName"
@@ -272,13 +272,13 @@ export default {
     };
   },
   methods: {
-    newUser: function () {
+    newClient: function () {
       this.firstName = this.lastName = this.email = this.role = this.department = "";
       setTimeout(() => {
         this.showmodal = true;
       }, 1000);
     },
-    pushUser: function () {
+    addClient: function () {
       if (
         !this.firstName ||
         !this.lastName ||

@@ -6,7 +6,7 @@ const fs = require('fs')
 
 //importing json
 let data = require('./client.json')
-const { royalblue } = require('color-name')
+
 //running express
 const app = express()
 
@@ -17,58 +17,23 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/client', (req, res) => {
-    //adding a client
-    const client = req.body;
-    data.push(client);
-    // fs.writeFileSync("./clients.json", client);
+//import get routes
+const getRoutes = require('./gets')
+app.use('/', getRoutes)
 
-    //console.log(client);
-    res.send('client has been added');
+//import post routes
+const postRoutes = require('./posts')
+app.use('/', postRoutes)
 
-});
-
-//loading all clients
-app.get('/loadclient', (req, res)=>{
-    res.json(data)
-    //console.log('Clients have been Loaded')
-})
-
-//delete a client
-app.delete('/client/:id', (req, res) => {
-    //const clientId = req.body
-    //console.log(clientId)
-    const query = req.params.id;
-    console.log(query)
-    console.log(data)
-    data = data.filter(i => i.id !== query)
-    res.send("client has been deleted")
-    console.log("client has been deleted")
+//import delete routes
+const deleteRoutes = require('./deletes')
+app.use('/', deleteRoutes)
 
 
-})
-
-
-//editlient
-app.get('/client/editclient/:id', (req, res)=> {
- const deleteQuery = req.params.id;
-    const updateData = data.filter(i => 
-        i.id === deleteQuery)
-    res.send(updateData)
-})
-
-//updating a client
-app.put('/client/updateclient/:id', (req, res) => {
-
-    const found = data.findIndex(obj => obj.id === req.params.id)
-    data[found].Name.firstName = req.body.firstName;
-    data[found].Name.lastName = req.body.lastName;
-    data[found].email= req.body.email;
-    data[found].role = req.body.role;
-    data[found].department = req.body.department;
-
-})
-
+//importing put routes
+const updateRoutes = require('./puts')
+const { appendFile } = require('fs-extra')
+app.use('/', updateRoutes)
 
 
 
