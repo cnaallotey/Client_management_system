@@ -1,11 +1,14 @@
 {
-  "name": "tert",
+  "name": "A CRUD CMS app",
   "description": "A Vue.js project",
   "version": "1.0.0",
-  "author": "Roberta Akoto <akotoro22@gmail.com>",
+  "author": "Charles Allotey <charlesallotey1995@gmail.com>",
   "license": "MIT",
   "private": true,
+  "main":"server/seerver.js",
   "scripts": {
+    "postinstall": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "start": "node server/server.js"
@@ -14,7 +17,12 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "axios": "^0.21.4",
-    "vue": "^2.5.11"
+    "vue": "^2.5.11",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "serve-static": "^1.14.1"
+
   },
   "browserslist": [
     "> 1%",
