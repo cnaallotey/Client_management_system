@@ -1,8 +1,10 @@
 //installing Dependencies
 const express = require('express')
 const bodyParser = require('body-parser')
+const serveStatic = require('serve-static')
 const cors = require('cors')
 const fs = require('fs')
+const path = require('path')
 
 //importing json
 let data = require('./client.json')
@@ -32,8 +34,9 @@ app.use('/', deleteRoutes)
 
 //importing put routes
 const updateRoutes = require('./puts')
-const { appendFile } = require('fs-extra')
 app.use('/', updateRoutes)
+
+app.use('/server/', serveStatic(path.join(__dirname, '/dist')))
 
 
 
