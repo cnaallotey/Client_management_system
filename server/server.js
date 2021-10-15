@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const serveStatic = require('serve-static')
 const cors = require('cors')
-const fs = require('fs')
+
 const path = require('path')
 
 //importing json
@@ -36,7 +36,8 @@ app.use('/', deleteRoutes)
 const updateRoutes = require('./puts')
 app.use('/', updateRoutes)
 
-app.use('/', serveStatic(path.join(__dirname, '/')))
+
+app.use('/', serveStatic(path.join(__dirname, '../')))
 
 
 
